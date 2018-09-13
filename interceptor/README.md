@@ -3,7 +3,7 @@
 ## Run Server and Send Request
 
 ```sh
-tailmoon:interceptor asa-taka$ go run main.go
+go run main.go
 ```
 
 to start server and send requests
