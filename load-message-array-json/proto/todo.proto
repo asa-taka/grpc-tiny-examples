@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+service ReadOnlyTodo {
+  rpc GetTodos(GetTodosRequest) returns (GetTodosResponse) {}
+}
+
+message Todo {
+  int32 id = 1;
+  string title = 2;
+  google.protobuf.Timestamp deadline = 3;
+}
+
+message GetTodosRequest {
+}
+
+message GetTodosResponse {
+  repeated Todo todos = 1;
+}

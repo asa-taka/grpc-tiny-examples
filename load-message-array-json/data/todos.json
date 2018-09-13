@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "title": "First ToDo",
+    "deadline": "2018-09-01T12:34:56.789Z"
+  },
+  {
+    "id": 2,
+    "title": "Second ToDo",
+    "deadline": "2018-09-01T12:34:56.789Z"
+  }
+]
