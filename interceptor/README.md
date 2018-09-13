@@ -1,8 +1,10 @@
 # Using Interceptor
 
-Here is a simple example to implement a interceptor of [grpc].
+Here is a simple example to implement interceptors of [grpc].
 
 [grpc]: https://godoc.org/google.golang.org/grpc
+
+First, define a function satisfies the interface of [grpc.UnaryServerInterceptor].
 
 ```go
 func loggingInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
@@ -13,7 +15,7 @@ func loggingInterceptor(ctx context.Context, req interface{}, info *grpc.UnarySe
 }
 ```
 
-And set it up to the `grpc.Server`.
+Then set it up to the `grpc.Server`.
 
 ```go
 grpcServer := grpc.NewServer(
@@ -21,19 +23,25 @@ grpcServer := grpc.NewServer(
 )
 ```
 
+Above function `loggingInterceptor` satisfy the interface of [grpc.UnaryServerInterceptor] and it can be converted to `ServerOption` by [grpc.UnaryInterceptor].
+
+[grpc.UnaryInterceptor]: https://godoc.org/google.golang.org/grpc#UnaryInterceptor
+[grpc.UnaryServerInterceptor]: https://godoc.org/google.golang.org/grpc#UnaryServerInterceptor
+
+
 ## Run Server and Send Request
 
 ```sh
 go run main.go
 ```
 
-to start server and send requests
+to start server, and send requests
 
 ```sh
 grpc_cli call localhost:10000 Hello "name: 'asa-taka'"
 ```
 
-from another terminal, then the interceptor message will be displayed.
+from another terminal, then the interceptor message will be displayed like below.
 
 ```
 2018/09/13 22:20:39 gRPC server starts on localhost:10000
