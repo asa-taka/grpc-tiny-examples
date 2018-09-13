@@ -1,5 +1,26 @@
 # Using Interceptor
 
+Here is a simple example to implement a interceptor of [grpc].
+
+[grpc]: https://godoc.org/google.golang.org/grpc
+
+```go
+func loggingInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+	res, err := handler(ctx, req)
+	log.Println("My interceptor called!")
+	log.Printf("%s: %v -> %v", info.FullMethod, req, res)
+	return res, err
+}
+```
+
+And set it up to the `grpc.Server`.
+
+```go
+grpcServer := grpc.NewServer(
+  grpc.UnaryInterceptor(loggingInterceptor),
+)
+```
+
 ## Run Server and Send Request
 
 ```sh
